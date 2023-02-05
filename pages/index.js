@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LENS_QUERY, client } from '../constants/lensQueries'
+import { exploreProfiles, client, getPublications } from '../constants/lensQueries'
 import { useQuery } from '@apollo/client'
 import Link from 'next/link'
 
@@ -9,7 +9,7 @@ export default function Home() {
 
   async function fetchProfiles() {
     try {
-      let response = await client.query({ query: LENS_QUERY })
+      let response = await client.query({ query: exploreProfiles })
       let profileData = await Promise.all(response.data.exploreProfiles.items.map(async profileInfo => {
         let profile = { ...profileInfo }
         let picture = profile.picture
